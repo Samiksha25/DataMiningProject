@@ -29,8 +29,9 @@ summary (playerData)
 playerData %>% drop_na()
 
 # display only relavant information
-playerData %>% select(Age, MinutesPlayed, TotalRebounds, Assists, Steals, 
-                      Blocks, Points, SalaryCategory)
+playerData <- playerData %>% select(-MinutesPlayed)
+print(playerData)
+
 
 # set random seed 
 set.seed(591)
@@ -47,7 +48,6 @@ playerDataTesting <- playerData[-sample_set, ]
 # Generate the decision tree model to predict SalaryCategory based on the other 
 # variables in the dataset. Use 0.01 as the complexity parameter.
 playerDataDecisionTreeModel <- rpart(formula = SalaryCategory ~ Age + 
-                                       MinutesPlayed +
                                        TotalRebounds +
                                        Assists + 
                                        Steals +

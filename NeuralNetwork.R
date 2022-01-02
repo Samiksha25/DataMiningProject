@@ -26,17 +26,16 @@ str (playerData)
 # Display the summary of fishingCharter in the console
 summary (playerData)
 
+# craete a correlation plot  
 round (cor (playerData), 2 )
 
-# remove rows if they have empty data
-playerData %>% drop_na()
+# removed MinutesPlayed  
+playerData <- playerData %>% select(-MinutesPlayed)
 
 #scale the data to normalize it
 playerData <- playerData %>%
   mutate(AgeScaled = (Age - min(Age)) /
            (max(Age) - min(Age)),
-         MinutesPlayedScaled = (MinutesPlayed - min(MinutesPlayed)) /
-           (max(MinutesPlayed) - min(MinutesPlayed)),
          TotalReboundsScaled = (TotalRebounds - min(TotalRebounds)) /
            (max(TotalRebounds) - min(TotalRebounds)),
          AssistsScaled = (Assists - min(Assists)) /
@@ -48,6 +47,7 @@ playerData <- playerData %>%
          PointsScaled = (Points - min(Points)) /
            (max(Points) - min(Points)))
 
+print (playerData)
 # set random seed
 set.seed(591)
 
@@ -63,7 +63,7 @@ playerDataTesting <- playerData[-sample_set, ]
 
 # generating the neural network
 playerDataNeuralNet <- neuralnet(
-  formula = SalaryCategory ~ Age + TotalRebounds + MinutesPlayed + Steals 
+  formula = SalaryCategory ~ Age + TotalRebounds + Steals 
   + Assists + Blocks + Points ,
   data = playerDataTraining,
   hidden = 3,
@@ -102,8 +102,8 @@ print(playerDataConfusionMatrix)
 
 # calculate the model predictive accuracy
 predictiveAccuracy <- sum(diag(playerDataConfusionMatrix)) /
-  nrow(playerDataTesting)
+nrow(playerDataTesting)
 
 # display the predictive accuracy
 print(predictiveAccuracy)
-
+  

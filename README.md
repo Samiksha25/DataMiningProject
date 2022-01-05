@@ -24,7 +24,7 @@ Navigate to https://cran.r-project.org/
 Navigate to https://www.rstudio.com/products/rstudio/download/#download
 
 ## Usage
-For every .r file update the working directory to the location where your r files are saved.
+For every .r file update the working directory of the dataset to the location to the location where it is stored in your local system.
 Run the R code in RStudio and observe the outcomes.
 
 ## Findings
